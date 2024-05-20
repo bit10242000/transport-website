@@ -3,5 +3,98 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "revenues": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/revenues",
+      "sourceRoot": "projects/revenues/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/revenues",
+            "index": "projects/revenues/src/index.html",
+            "browser": "projects/revenues/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/revenues/tsconfig.app.json",
+            "assets": [
+              "projects/revenues/src/favicon.ico",
+              "projects/revenues/src/assets"
+            ],
+            "styles": [
+              "projects/revenues/src/styles.css"
+            ],
+            "scripts": [],
+            "server": "projects/revenues/src/main.server.ts",
+            "prerender": true,
+            "ssr": {
+              "entry": "projects/revenues/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "revenues:build:production"
+            },
+            "development": {
+              "buildTarget": "revenues:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "revenues:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/revenues/tsconfig.spec.json",
+            "assets": [
+              "projects/revenues/src/favicon.ico",
+              "projects/revenues/src/assets"
+            ],
+            "styles": [
+              "projects/revenues/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
   }
 }
